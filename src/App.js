@@ -23,23 +23,31 @@ function App() {
 		emptyPartyMember
 	);
 	// axios to fetch
-	const getPartyMember = () => {
-		axios.get(url + '/partymember/').then(function (response) {
-			setPartyMember(response);
-		});
-	};
 	// const getPartyMember = () => {
-	// 	fetch(url + '/partymember/')
-	// 		.then((response) => response.json())
-	// 		.then((data) => {
-	// 			setPartyMember(data);
-	// 		});
+	// 	axios.get(url + '/partymember/').then(function (response) {
+	// 		setPartyMember(response);
+	// 	});
 	// };
+	const getPartyMember = () => {
+		fetch(url + '/partymember/')
+			.then((response) => response.json())
+			.then((data) => {
+				setPartyMember(data);
+			});
+	};
 	React.useEffect(() => {
 		getPartyMember();
-    }, []);
-    console.log(partyMember)
+	}, []);
+	console.log(partyMember);
 	// handle for create
+	// const handleCreate = (newPartyMember) => {
+	// 	axios
+	// 		.post(url + '/partymember/', {
+	// 			headers: { 'Content-Type': 'application/json' },
+	// 			body: JSON.stringify(newPartyMember),
+	// 		})
+	// 		.then((response) => getPartyMember);
+	// };
 	const handleCreate = (newPartyMember) => {
 		axios
 			.post(url + '/partymember/', {
@@ -50,20 +58,24 @@ function App() {
 	};
 	//handleUpdate to update a dog when form is clicked
 	const handleUpdate = (member) => {
-		axios
-			.put(url + '/partymember/' + member._id, {
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(member),
-			})
-			.then((response) => getPartyMember());
+		fetch(url + '/partymember/' + member._id, {
+			method: 'post',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(member),
+		}).then((response) => getPartyMember());
 	};
 	// handle for remove party member
+	// const removePartyMember = (member) => {
+	// 	axios
+	// 		.delete(url + '/partymember/' + member.name)
+	// 		.then((response) => getPartyMember);
+	// };
 	const removePartyMember = (member) => {
-		axios
-			.delete(url + '/partymember/' + member.name)
-			.then((response) => getPartyMember);
+		fetch(url + '/partymember/' + member.name, { method: 'delete' }).then(
+			(response) => getPartyMember
+		);
 	};
 	// default
 	const selectMember = (member) => {
