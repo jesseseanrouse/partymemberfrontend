@@ -23,18 +23,18 @@ function App() {
 		emptyPartyMember
 	);
 	// axios to fetch
-	// const getPartyMember = () => {
-	// 	axios.get('https://jsrpartymemberbackend.herokuapp.com/partymember/').then(function (response) {
-	// 		setPartyMember(response);
-	// 	});
-	// };
 	const getPartyMember = () => {
-		fetch(url + '/partymember/')
-			.then((response) => response.json())
-			.then((data) => {
-				setPartyMember(data);
-			});
+		axios.get(url + '/partymember/').then(function (response) {
+			setPartyMember(response);
+		});
 	};
+	// const getPartyMember = () => {
+	// 	fetch(url + '/partymember/')
+	// 		.then((response) => response.json())
+	// 		.then((data) => {
+	// 			setPartyMember(data);
+	// 		});
+	// };
 	React.useEffect(() => {
 		getPartyMember();
     }, []);
